@@ -13,6 +13,6 @@ for i in range(len(sigma_arr)):
         sigma = sigma_arr[i]; 
         alpha = alpha_arr[j]
         print(alpha,sigma)
-        exec(open("./Test_9_p2b.py").read()) 
+        exec(open("./MainNetwork.py").read()) 
        
         NetworkModel(sigma, alpha)

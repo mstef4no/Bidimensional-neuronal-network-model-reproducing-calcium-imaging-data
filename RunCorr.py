@@ -1,5 +1,3 @@
-
-
 import numpy as np
 
 sigma_arr = np.array([0.1, 0.2,  0.5, 1, 10]) 
@@ -11,5 +9,5 @@ for i in range(len(sigma_arr)):
         sigma = sigma_arr[i]; 
         alpha = alpha_arr[j]
         print(sigma,alpha)
-        exec(open("./Test_9_corr_2.py").read()) 
+        exec(open("./MainCorr.py").read()) 
         NetworkCorr(sigma, alpha)

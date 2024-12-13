@@ -1,7 +1,7 @@
 
 import numpy as np
 
-from Test_9_p2b import NetworkModel
+from MainNetwork import NetworkModel
 
 sigma_arr = np.array([0.1, 0.2,  0.5, 1, 10]) 
 alpha_arr = np.array([0.01, 0.1, 0.15, 0.2, 1]) 

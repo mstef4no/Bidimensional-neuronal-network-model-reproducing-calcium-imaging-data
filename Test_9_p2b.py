@@ -53,7 +53,6 @@ def NetworkModel(sigma, alpha):
         
     arr_ini = np.arange(N_ini) 
         
-    
     syn_E_E = [] 
     netcons_E_E = [] 
     
@@ -71,18 +70,14 @@ def NetworkModel(sigma, alpha):
     syn_mech_w_IB = 0.025*0.65
     syn_mech_w_ini = 0.02*0.25
     
-    
     stim_dur = 61000 
     stim_start = 10
     T_stim = 100  
 
-    
     p_EE = 0.1; p_EI = 0.3; p_II = 0.2; p_IE = 0.4;
-    
     
     ampl=8/((np.sqrt(2)*np.sqrt(math.pi)*sigma/2)*math.erf(np.sqrt(2)/(2*sigma))*0.1*80)
     
-
     vreve=0
     vrevi=-70
     vt=-60

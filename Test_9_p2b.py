@@ -1,7 +1,6 @@
 
 from neuron import h 
 from neuron.units import ms, mV 
-
 from matplotlib import pyplot as plt
 import numpy as np
 import math 
@@ -26,8 +25,6 @@ def NetworkModel(sigma, alpha):
     N_ecc_RS = int(N_ecc * p_ecc_RS)  
     
     N_ini = int(N_tot*p_ini) 
-    
-    
     
     XEcc = np.random.rand(N_ecc) 
     YEcc = np.random.rand(N_ecc) 

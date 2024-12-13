@@ -24,7 +24,7 @@ def NetworkModel(sigma, alpha):
     N_ecc_IB = int(N_ecc * p_ecc_IB) 
     N_ecc_RS = int(N_ecc * p_ecc_RS)  
     
-    N_ini = int(N_tot*p_ini) 
+    N_ini = int(N_tot*p_ini) # Number of inhibitory neurons
     
     XEcc = np.random.rand(N_ecc) 
     YEcc = np.random.rand(N_ecc) 
@@ -74,7 +74,7 @@ def NetworkModel(sigma, alpha):
     stim_start = 10
     T_stim = 100  
 
-    p_EE = 0.1; p_EI = 0.3; p_II = 0.2; p_IE = 0.4;
+    p_EE = 0.1; p_EI = 0.3; p_II = 0.2; p_IE = 0.4; # connections probabilities 
     
     ampl=8/((np.sqrt(2)*np.sqrt(math.pi)*sigma/2)*math.erf(np.sqrt(2)/(2*sigma))*0.1*80)
     

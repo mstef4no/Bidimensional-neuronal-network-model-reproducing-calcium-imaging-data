@@ -10,12 +10,8 @@ from ecc_IB import PYRS
 from ini_IFS import INFS 
 from RS_Cell import RS_CELL
 h.load_file("stdrun.hoc")
-import datetime 
-from scipy.signal import find_peaks 
-# From this line we observe the definition of the properties of the network
+
 def NetworkModel(sigma, alpha):
-    now_1 = datetime.datetime.now() 
-    print('Orario di run:', now_1)
     
     N_tot = 100 # total number of cells
     
@@ -31,17 +27,12 @@ def NetworkModel(sigma, alpha):
     
     N_ini = int(N_tot*p_ini) # number of inhibitory cells
     
-    # :::::::::::::::::::::::::::::::::::::::
+
     # ::::::::::::::: Coordinates ::::::::::::
     XEcc = np.random.rand(N_ecc)
     YEcc = np.random.rand(N_ecc) 
     XIni = np.random.rand(N_ini) 
     YIni = np.random.rand(N_ini) 
-    # :::::::::::::::::::::::::::::::::::::::
-    # :::::::::::::: Definition of :::::::::
-    # :::::::::::::: parameters ::::::::::::::
-
-
 
     EE = np.zeros((N_ecc,N_ecc))
     EI = np.zeros((N_ecc,N_ini))
@@ -54,11 +45,8 @@ def NetworkModel(sigma, alpha):
     for k in range(N_ecc_IB): 
         EccCellsList.append(PYRS())
     
-    
-
     for k in range(N_ecc_IB,N_ecc,1):
         EccCellsList.append(RS_CELL())    
-    
     
     IniCellsList = [] # definition of the list containing inhibitory cells
     for k in range(N_ini): 
@@ -68,7 +56,6 @@ def NetworkModel(sigma, alpha):
         
     arr_ini = np.arange(N_ini)
         
-    
     syn_E_E = [] 
     netcons_E_E = [] 
     
@@ -81,38 +68,34 @@ def NetworkModel(sigma, alpha):
     syn_I_I = [] 
     netcons_I_I = [] 
 
-
     syn_mech_w_ecc = 0.025*0.25
-
-
     syn_mech_w_RS = 0.025*0.25
     syn_mech_w_IB = 0.025*0.25
     syn_mech_w_ini = 0.02*0.25
     
-    # netstim parameters
+    # NetStim parameters
     stim_dur = 61000 # ms
     stim_start = 10
     T_stim = 100
 
     p_EE = 0.1; p_EI = 0.3; p_II = 0.2; p_IE = 0.4;
 
-#    ampl=8/((np.sqrt(2)*np.sqrt(math.pi)*sigma/2)*math.erf(np.sqrt(2)/(2*sigma))*0.1*80)
-    ampl =1/ ( 0.5 * math.pi * np.power(sigma, 2) * np.power((math.erf(np.sqrt(2) / (2 * sigma))), 2))
+    ampl=8/((np.sqrt(2)*np.sqrt(math.pi)*sigma/2)*math.erf(np.sqrt(2)/(2*sigma))*0.1*80)
+    #ampl =1/ ( 0.5 * math.pi * np.power(sigma, 2) * np.power((math.erf(np.sqrt(2) / (2 * sigma))), 2))
 
     vreve=0
     vrevi=-70
     vt=-60
     epsp_ampl=0.7
-    w_E_E=0.5*ampl*epsp_ampl/(vreve-vt) #0.7mV: epsp single spike
+    w_E_E=0.5*ampl*epsp_ampl/(vreve-vt) 
     w_E_I =w_E_E/3
     w_I_E=(-alpha*ampl*epsp_ampl/(vrevi-vt))
-    w_I_I =w_I_E/3 #0.04# 0.005*10#0.001#0.005
+    w_I_I =w_I_E/3 
     
     w_RS = 0 
-    #aus_new_arr_perc_ecc = []
+    
     for i in range(N_ecc): 
         
-        # ::::::::: coordinates og the source cell  :::::::
         xS = XEcc[i]; yS = YEcc[i] 
     
         new_ecc = np.delete(arr_ecc,np.where(arr_ecc == i))
@@ -130,9 +113,6 @@ def NetworkModel(sigma, alpha):
         EE[i,NewArrPercEE] = 1
         EI[i,NewArrPercEI] = 1
     
-        #new_array_perc_ecc = NewArrPercEE
-
-        """ Synaptic connections AMPA and NMDA Exc-Exc """
         for j in NewArrPercEE:
             syn_AMPA = h.Exp2SynM(EccCellsList[j].soma(0.5))
             syn_AMPA.tau1 = 0.2
@@ -157,14 +137,14 @@ def NetworkModel(sigma, alpha):
             netcons_E_E.append(nc_E_E) 
             syn_E_E.append(syn_NMDA)
 
-        """ Synaptic connections AMPA and NMDA Exc-Inhib """
-        #new_array_perc_ini = NewArrPercEI
+
+
         for j in NewArrPercEI:
-            # target cell is the j-th inhib cell
+            
             syn_AMPA = h.Exp2SynM(IniCellsList[j].soma(0.5))
-            # prop of Exp2SynM for inhib cell
-            syn_AMPA.tau1 = 0.2 #0.1
-            syn_AMPA.tau2 = 2.0 #5.0 
+            
+            syn_AMPA.tau1 = 0.2 
+            syn_AMPA.tau2 = 2.0 
             syn_AMPA.e = 0
             syn_AMPA.dd = 0.8
             syn_AMPA.taud = 10000
@@ -175,9 +155,9 @@ def NetworkModel(sigma, alpha):
             syn_E_I.append(syn_AMPA) 
 
             syn_NMDA = h.Exp2SynM_NMDA(IniCellsList[j].soma(0.5))
-            # prop of Exp2SynM for inhib cell
-            syn_NMDA.tau1 = 4 #0.1
-            syn_NMDA.tau2 = 40 #5.0 
+            
+            syn_NMDA.tau1 = 4 
+            syn_NMDA.tau2 = 40 
             syn_NMDA.e = 0
             syn_NMDA.dd = 0.8
             syn_NMDA.taud = 10000
@@ -187,12 +167,10 @@ def NetworkModel(sigma, alpha):
             netcons_E_I.append(nc)
             syn_E_I.append(syn_NMDA)
     
-        #aus_new_arr_perc_ecc.append(new_array_perc_ecc)
+        
     """ Recording of SpikeTimes useful for data processing """
     spike_times_E_E = [h.Vector() for ncEE in netcons_E_E] 
-    
     aus = zip(netcons_E_E, spike_times_E_E)
-    
     del(xS,yS) 
 
     nc_st = [] 
@@ -211,15 +189,15 @@ def NetworkModel(sigma, alpha):
         """ Location of inhibitory cells and their connections """
         # ::::: Coordinates of the source cell :::::
         xS = XIni[i]; yS = YIni[i] 
-        new_ini = np.delete(arr_ini,np.where(arr_ini == i)) # toglie dall'array l'elemento uguale ad i 
+        new_ini = np.delete(arr_ini,np.where(arr_ini == i)) 
         XNewIni = XIni[new_ini] 
         YNewIni = YIni[new_ini] 
         PGaussII = p_II * np.exp(-( np.power((xS - XNewIni),2) + np.power((yS - YNewIni),2))/(2*np.power(sigma,2)) )
         PGaussIE = p_IE * np.exp(-( np.power((xS - XEcc),2) + np.power((yS - YEcc),2))/(2*np.power(sigma,2)) )
         RndmFiltII = np.random.rand(np.size(PGaussII))
         RndmFiltIE = np.random.rand(np.size(PGaussIE)) 
-        NewArrPercII = new_ini[RndmFiltII<PGaussII] # salvare per ogni cell Sorg
-        NewArrPercIE = arr_ecc[RndmFiltIE<PGaussIE]# salvare per ogni cell Sorg 
+        NewArrPercII = new_ini[RndmFiltII<PGaussII] 
+        NewArrPercIE = arr_ecc[RndmFiltIE<PGaussIE] 
         II[i,NewArrPercII] = 1 
         IE[i,NewArrPercIE] = 1 
     
@@ -242,17 +220,16 @@ def NetworkModel(sigma, alpha):
             syn_I_I.append(syn)
     
 
-        # connections of Inhib --> Exc
+        
         for j in NewArrPercIE:
-            # target cell is the j-th exc cell
+        
             syn = h.Exp2SynM(EccCellsList[j].soma(0.5))
             syn.tau1 = 0.1 
-            syn.tau2 = 3.0 #5.0 
+            syn.tau2 = 3.0 
             syn.e =  -70
             syn.dd = 0.8
             syn.taud = 10000
             
-            # pre-synaptic cell is the i-th inhibitory cell
             nc = h.NetCon(IniCellsList[i].soma(0.5)._ref_v,syn,0,0,w_I_E,sec=IniCellsList[i].soma)
     
             netcons_I_E.append(nc) 
@@ -276,14 +253,11 @@ def NetworkModel(sigma, alpha):
     
     n_cell_ecc_stim = int(p_ecc_stim*N_ecc)
 
-    p_ini_stim = 1 # 0.2
+    p_ini_stim = 1 
     n_cell_ini_stim = int(p_ini_stim*N_ini)
 
     arr_ecc_stim = np.random.choice(arr_ecc,n_cell_ecc_stim,replace=False)
     arr_ini_stim = np.random.choice(arr_ini,n_cell_ini_stim,replace=False)
-    
-    #print(arr_ecc_stim.shape)
-    #print(arr_ecc_stim)
     
     ''' -------------------------------------------------------------------- ''' 
     ''' ------------------------ NETSTIM ----------------------------------- ''' 
@@ -323,14 +297,13 @@ def NetworkModel(sigma, alpha):
         
         arr_stim_ecc.append(stim_ecc)
         
-    # making of the list of p cells to stimulate
-    # p depends on the percentage
+    
     arr_syn_stim_ini = [] 
     arr_nc_netstim_ini = [] 
     arr_stim_ini = []; 
         
     for j in arr_ini_stim: 
-        #num_ini = round(random.random(),1)
+        
         syn_stim_ini = h.Exp2SynM(IniCellsList[j].soma(0.5)) 
         syn_stim_ini.tau1 = 0.2
         syn_stim_ini.tau2 = 2.0
@@ -395,7 +368,7 @@ def NetworkModel(sigma, alpha):
     
     NomePlot = 'RasterPlot_' + str(N_tot) + '_' + ID + '.png'
     plt.figure(figsize=(14,6))
-    plt.eventplot(AllNewSpikeTimesPy,linestyles='solid', #linelengths=3, # 8
+    plt.eventplot(AllNewSpikeTimesPy,linestyles='solid', 
                linewidths=3,color='blue')
     plt.xlabel('time (ms)',fontsize=30)
     plt.xticks(fontsize=30); plt.yticks(fontsize=30)
@@ -405,14 +378,10 @@ def NetworkModel(sigma, alpha):
     plt.xlim(2000,stim_dur)
     plt.savefig(NomePlot)
 
-
-
     """ ---------------------- Saving data in .csv --------------------- """
 
     name1= 'AllNewSpikeTimes_' + str(N_tot) + '_' + ID + '.csv'
     DF2 = pd.DataFrame(AllNewSpikeTimesPy) 
     DF2.to_csv(name1)
-
-     
-    now_2 = datetime.datetime.now()
-    print(now_2)
+    
+    return 

@@ -80,8 +80,7 @@ def NetworkModel(sigma, alpha):
 
     p_EE = 0.1; p_EI = 0.3; p_II = 0.2; p_IE = 0.4;
 
-    ampl=8/((np.sqrt(2)*np.sqrt(math.pi)*sigma/2)*math.erf(np.sqrt(2)/(2*sigma))*0.1*80)
-    #ampl =1/ ( 0.5 * math.pi * np.power(sigma, 2) * np.power((math.erf(np.sqrt(2) / (2 * sigma))), 2))
+    ampl =1/ ( 0.5 * math.pi * np.power(sigma, 2) * np.power((math.erf(np.sqrt(2) / (2 * sigma))), 2))
 
     vreve=0
     vrevi=-70

@@ -21,9 +21,10 @@ In that script, it is possible to vary the ```alpha``` and ```sigma``` parameter
 **RunCorr.py**  
 
 The *RunCorr.py* script is used to manage the *MainCorr.py*.  
+In that script, it is possible to vary the ```alpha``` and ```sigma``` parameters to be used in the *MainCorr.py* script. 
 
 **MainCorr.py** 
 
 That script is used to extract and process the data provided by the *NetworkModel.py*.  
 The **input** of that script are the spike times obtained from the *NetworkModel.py*.  
-The **output** of that script are the reconstructed mean calcium signals, the Power Spectrum of mean calcium signal and the correlation coefficients.
+The **output** of that script are the reconstructed mean calcium signals and the distribution of pairwise correlation coefficients, computed on single cells calcium traces.

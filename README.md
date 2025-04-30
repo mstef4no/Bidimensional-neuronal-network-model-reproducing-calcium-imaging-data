@@ -26,4 +26,4 @@ The *RunCorr.py* script is used to manage the *MainCorr.py*.
 
 That script is used to extract and process the data provided by the *NetworkModel.py*.  
 The **input** of that script are the spike times obtained from the *NetworkModel.py*.  
-The **output** of that script are the calcium signals reconstruction, the Probability Spectral Analysis and the correlation coefficients.
+The **output** of that script are the reconstructed mean calcium signals, the Power Spectrum of mean calcium signal and the correlation coefficients.

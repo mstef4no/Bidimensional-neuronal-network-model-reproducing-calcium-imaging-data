@@ -3,6 +3,8 @@
 The codes allow to simulate the behavior of bidimensional neuronal cultures. 
 A set of specific parameters can be varied to describe different scenarios according to the  specific research needs. 
 
+The network model includes excitatory Regular Spiking (RS), excitatory Intrinsic Bursting (IB) and inhibitory Fast Spiking (FS) cells modelled with Hodgkin-Huxley formalism as reported in M. Pospischil et al. 2008. Minimal Hodgkin–Huxley type models for different classes of cortical and thalamic neurons. Biological cybernetics, 99, 427-441. 
+
 
 **MainNetwork.py**
 

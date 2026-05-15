@@ -33,3 +33,5 @@ That script is used to extract and process the data provided by the *NetworkMode
 The **input** of that script are the spike times obtained from the *NetworkModel.py*.  
 The **output** of that script are the reconstructed mean calcium signals and the distribution of pairwise correlation coefficients, computed on single cells calcium traces.
 
+**Experimental data** 
+To reproduce the histograms of correlation coefficient, *Wild_Type_.txt* and *Alz_.txt* can be used.

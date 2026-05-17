@@ -36,3 +36,7 @@ The **output** of that script are the reconstructed mean calcium signals and the
 **Experimental data** 
 
 To reproduce the histograms of correlation coefficient, *Wild_Type_.txt* and *Alz_.txt* can be used.
+
+In the CC folder, you can find the Correlation Coefficients values for Wild Type and Alzheimer conditions, at different ranges of DIV. 
+
+In the mean_signals folder, you can find the representative data of mean light intensity for Wild Type and Alzheimer conditions, at different ranges of DIV. 
